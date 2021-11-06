@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#container {
+    display: flex;
+}
+
+#calculator {
+    height: 800px;
+    width: 400px;
+    background-color: grey;
+}
+
+#display {
+    height: 30%;
+    width: auto;
+    text-align: right;
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+    font-family: sans-serif;
+    font-size: 30px;
+    color: rgb(255, 208, 1);
+}
+
+
+#keyboard {
+    height: 70%;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button {
+    width: 25%;
+    height: auto;
+}
