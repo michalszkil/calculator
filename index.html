@@ -5,14 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <script src = "script.js"></script>
     <link rel="stylesheet" href = "style.css">
+    <script defer src = "script.js"></script>
 </head>
 <body>
     <div id="container">
         <div id="calculator">
-            <div id="display">2137</div>
+            <div id="display">
+                <div id="display-equation"></div>
+                <div id="display-main">0</div>
+            </div>
             <div id="keyboard">
+                <button class="button" id="clear">C</button>
+                <button class="button" id="placeholder"></button>
+                <button class="button" id="placeholder"></button>
+                <button class="button" id="placeholder"></button>
                 <button class="button" id="digit_7">7</button>
                 <button class="button" id="digit_8">8</button>
                 <button class="button" id="digit_9">9</button>
