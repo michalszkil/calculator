@@ -1,3 +1,9 @@
+const DIGIT_LIMIT = 10;
+
+Number.prototype.round = function(places) {
+    return +(Math.round(this + "e+" + places)  + "e-" + places);
+}
+
 function add(addend_1, addend_2) {
     return addend_1 + addend_2;
 }
@@ -24,10 +30,29 @@ function operate(number_1, number_2, operator) {
     } else if (operator === "/") {
         return (divide(number_1, number_2));
     } else {
-        return 0; // To chyba załatwia sytuację wciśnięcia = bez niczego innego wcześniej po wczytaniu strony
+        return 0;
     }
 }
-// If last button pressed was equal then reset values to 0
+// The rounding doesn't really work for very small numbers but who cares
+function checkNumberOfAllDigits(number) {
+    return (''+number).length;
+}
+function checkNumberOfIntegerDigits(number) {
+    return Math.max(Math.floor(Math.log10(Math.abs(number))), 0) + 1; // stolen from https://stackoverflow.com/questions/14879691/get-number-of-digits-with-javascript/28203456#28203456
+}
+function limitRoundDecimals (number) { // limit number of displayed decimals so that the display fits the whole number
+    number_of_digits = checkNumberOfAllDigits(number);
+    console.log("Number of digits = " + number_of_digits);
+    if (number_of_digits <= DIGIT_LIMIT) {
+        return number;
+    } else if (checkNumberOfIntegerDigits(number) >= DIGIT_LIMIT) {
+        return "LOL";
+    } else {
+        return number.round(DIGIT_LIMIT - checkNumberOfIntegerDigits(number));
+    }
+}
+
+// If last button pressed was "=" then reset values to 0
 function resetValues() {
     if (last_button_equal) {
         display_value = 0;
@@ -38,10 +63,10 @@ function resetValues() {
 }
 
 function updateDisplayMain() {
-    display_main.innerText = display_value;
+    display_main.innerText = limitRoundDecimals(display_value);
 }
 function printResult() {
-    display_main.innerText = result_value;
+    display_main.innerText = limitRoundDecimals(result_value);
 }
 function updateDisplayEquation(operation) {
     display_equation.innerText = memory_value + " " + operation;
@@ -146,63 +171,40 @@ button_clear.addEventListener("click", function(){
     last_button_equal = false;
 })
 button_add.addEventListener("click", function () {
-    if (last_button_equal) {
-        operation = "+";
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
-    } else {
+    if (!last_button_equal) {
         memory_value = display_value;
-        operation = "+";
-        display_value = 0;
-        // updateDisplayMain();
-        updateDisplayEquation(operation);
-        last_button_equal = false;
     }
-
+    operation = "+";
+    display_value = 0;
+    updateDisplayEquation(operation);
+    last_button_equal = false;
 })
 button_subtract.addEventListener("click", function() {
-    if (last_button_equal) {
-        operation = "-";
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
-    } else {
+    if (!last_button_equal) {
         memory_value = display_value;
-        operation = "-";
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
     }
-
+    operation = "-";
+    display_value = 0;
+    updateDisplayEquation(operation);
+    last_button_equal = false;
 })
 button_multiply.addEventListener("click", function (){
-    if (last_button_equal) {
-        operation = "*";
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
-    } else {
-        operation = "*";
+    if (!last_button_equal) {
         memory_value = display_value;
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
     }
+    operation = "*";
+    display_value = 0;
+    updateDisplayEquation(operation);
+    last_button_equal = false;
 })
 button_divide.addEventListener("click", function (){
-    if (last_button_equal) {
-        operation = "/";
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
-    } else {
-        operation = "/";
+    if (!last_button_equal) {
         memory_value = display_value;
-        display_value = 0;
-        updateDisplayEquation(operation);
-        last_button_equal = false;
     }
+    operation = "/";
+    display_value = 0;
+    updateDisplayEquation(operation);
+    last_button_equal = false;
 })
 button_equals.addEventListener("click", function () {
     result_value = operate(memory_value, display_value, operation);
