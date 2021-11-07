@@ -40,6 +40,9 @@ function resetValues() {
 function updateDisplayMain() {
     display_main.innerText = display_value;
 }
+function printResult() {
+    display_main.innerText = result_value;
+}
 function updateDisplayEquation(operation) {
     display_equation.innerText = memory_value + " " + operation;
 }
@@ -50,6 +53,7 @@ function clearDisplayEquation(operation) {
 
 let display_value = 0;
 let memory_value = 0;
+let result_value = 0;
 let operation = null;
 let last_button_equal = false;
 
@@ -142,26 +146,70 @@ button_clear.addEventListener("click", function(){
     last_button_equal = false;
 })
 button_add.addEventListener("click", function () {
-    memory_value = display_value;
-    operation = "+";
-    display_value = 0;
-    // updateDisplayMain();
-    updateDisplayEquation(operation);
-    last_button_equal = false;
+    if (last_button_equal) {
+        operation = "+";
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    } else {
+        memory_value = display_value;
+        operation = "+";
+        display_value = 0;
+        // updateDisplayMain();
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    }
+
 })
 button_subtract.addEventListener("click", function() {
-    memory_value = display_value;
-    operation = "-";
-    display_value = 0;
-    updateDisplayEquation(operation);
-    last_button_equal = false;
+    if (last_button_equal) {
+        operation = "-";
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    } else {
+        memory_value = display_value;
+        operation = "-";
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    }
+
+})
+button_multiply.addEventListener("click", function (){
+    if (last_button_equal) {
+        operation = "*";
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    } else {
+        operation = "*";
+        memory_value = display_value;
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    }
+})
+button_divide.addEventListener("click", function (){
+    if (last_button_equal) {
+        operation = "/";
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    } else {
+        operation = "/";
+        memory_value = display_value;
+        display_value = 0;
+        updateDisplayEquation(operation);
+        last_button_equal = false;
+    }
 })
 button_equals.addEventListener("click", function () {
-    memory_value = operate(memory_value, display_value, operation);
-    temp = display_value;
-    display_value = memory_value;
-    updateDisplayMain();
-    display_value = temp;
+    result_value = operate(memory_value, display_value, operation);
+    printResult();
     clearDisplayEquation();
     last_button_equal = true;
+    memory_value = result_value;
+    console.log("display_value = " + display_value);
+    console.log("memory_value = " + memory_value);
 })
