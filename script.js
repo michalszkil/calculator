@@ -54,17 +54,13 @@ function limitRoundDecimals (number) { // limit number of displayed decimals so 
     }
 }
 
-function addDecimalPart () { // remove this shit
-    console.log("Decimal part to be added:" + decimal_part);
-    console.log("Decimal part to be added:" + (decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)))));/*.round(checkNumberOfAllDigits(decimal_part)))*/
-    console.log("Display value to add to: " + display_value);
-    display_value = display_value + decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));/*.round(checkNumberOfAllDigits(decimal_part))*/
-    console.log(display_value);
-}
-
 function addDecimalString() { // remove old decimal part and add new
     display_value = Math.trunc(display_value);
     display_value = parseFloat(display_value + decimal_string);
+}
+
+function changeNumberSign() {
+    display_value = -display_value;
 }
 
 // If last button pressed was "=" then reset values to 0
@@ -116,6 +112,7 @@ const button_multiply = document.getElementById("multiply");
 const button_divide = document.getElementById("divide");
 const button_equals = document.getElementById("equals");
 const button_decimal = document.getElementById("decimal");
+const button_change_sign = document.getElementById("change-sign");
 const button_clear = document.getElementById("clear");
 const display_main = document.getElementById("display-main");
 const display_equation = document.getElementById("display-equation")
@@ -124,9 +121,6 @@ button_0.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 0;
-            // addDecimalPart();
             decimal_string += "0";
             addDecimalString();
         } else {
@@ -140,9 +134,6 @@ button_1.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 1;
-            // addDecimalPart();
             decimal_string += "1";
             addDecimalString();
         } else {
@@ -156,9 +147,6 @@ button_2.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 2;
-            // addDecimalPart();
             decimal_string += "2";
             addDecimalString();
         } else {
@@ -172,9 +160,6 @@ button_3.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 3;
-            // addDecimalPart();
             decimal_string += "3";
             addDecimalString();
         } else {
@@ -188,9 +173,6 @@ button_4.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 4;
-            // addDecimalPart();
             decimal_string += "4";
             addDecimalString();
         } else {
@@ -204,9 +186,6 @@ button_5.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 5;
-            // addDecimalPart();
             decimal_string += "5";
             addDecimalString();
         } else {
@@ -220,9 +199,6 @@ button_6.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 6;
-            // addDecimalPart();
             decimal_string += "6";
             addDecimalString();
         } else {
@@ -236,9 +212,6 @@ button_7.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 7;
-            // addDecimalPart();
             decimal_string += "7";
             addDecimalString();
         } else {
@@ -252,9 +225,6 @@ button_8.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 8;
-            // addDecimalPart();
             decimal_string += "8";
             addDecimalString();
         } else {
@@ -268,9 +238,6 @@ button_9.addEventListener("click", function() {
     resetValues();
     if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
         if (decimal_mode) {
-            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
-            // decimal_part = decimal_part*10+ 9;
-            // addDecimalPart();
             decimal_string += "9";
             addDecimalString();
         } else {
@@ -338,6 +305,10 @@ button_divide.addEventListener("click", function (){
     display_value = 0;
     updateDisplayEquation(operation);
     last_button_equal = false;
+})
+button_change_sign.addEventListener("click", function() {
+    changeNumberSign();
+    updateDisplayMain();
 })
 button_decimal.addEventListener("click", function(){
     decimal_mode = true;
