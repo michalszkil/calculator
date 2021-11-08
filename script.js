@@ -33,6 +33,11 @@ function operate(number_1, number_2, operator) {
         return 0;
     }
 }
+
+function getRandomInt() {
+    return (Math.floor(Math.random() * (99999999 - (-999999999))) + (-999999999))* (Math.round(Math.random()) ? 1 : -1);
+  }
+
 // The rounding doesn't really work for very small numbers but who cares
 function checkNumberOfAllDigits(number) {
     return (''+number).length;
@@ -113,6 +118,8 @@ const button_divide = document.getElementById("divide");
 const button_equals = document.getElementById("equals");
 const button_decimal = document.getElementById("decimal");
 const button_change_sign = document.getElementById("change-sign");
+const button_percent = document.getElementById("percent");
+const button_random = document.getElementById("random");
 const button_clear = document.getElementById("clear");
 const display_main = document.getElementById("display-main");
 const display_equation = document.getElementById("display-equation")
@@ -310,7 +317,15 @@ button_change_sign.addEventListener("click", function() {
     changeNumberSign();
     updateDisplayMain();
 })
-button_decimal.addEventListener("click", function(){
+button_percent.addEventListener("click", function() {
+    display_value = display_value/100;
+    updateDisplayMain();
+})
+button_random.addEventListener("click", function() {
+    display_value = getRandomInt();
+    updateDisplayMain();
+})
+button_decimal.addEventListener("click", function() {
     decimal_mode = true;
 })
 button_equals.addEventListener("click", function () {
