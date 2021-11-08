@@ -37,9 +37,11 @@ function operate(number_1, number_2, operator) {
 function checkNumberOfAllDigits(number) {
     return (''+number).length;
 }
+
 function checkNumberOfIntegerDigits(number) {
     return Math.max(Math.floor(Math.log10(Math.abs(number))), 0) + 1; // stolen from https://stackoverflow.com/questions/14879691/get-number-of-digits-with-javascript/28203456#28203456
 }
+
 function limitRoundDecimals (number) { // limit number of displayed decimals so that the display fits the whole number
     number_of_digits = checkNumberOfAllDigits(number);
     console.log("Number of digits = " + number_of_digits);
@@ -50,6 +52,19 @@ function limitRoundDecimals (number) { // limit number of displayed decimals so 
     } else {
         return number.round(DIGIT_LIMIT - checkNumberOfIntegerDigits(number));
     }
+}
+
+function addDecimalPart () { // remove this shit
+    console.log("Decimal part to be added:" + decimal_part);
+    console.log("Decimal part to be added:" + (decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)))));/*.round(checkNumberOfAllDigits(decimal_part)))*/
+    console.log("Display value to add to: " + display_value);
+    display_value = display_value + decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));/*.round(checkNumberOfAllDigits(decimal_part))*/
+    console.log(display_value);
+}
+
+function addDecimalString() { // remove old decimal part and add new
+    display_value = Math.trunc(display_value);
+    display_value = parseFloat(display_value + decimal_string);
 }
 
 // If last button pressed was "=" then reset values to 0
@@ -69,7 +84,7 @@ function printResult() {
     display_main.innerText = limitRoundDecimals(result_value);
 }
 function updateDisplayEquation(operation) {
-    display_equation.innerText = memory_value + " " + operation;
+    display_equation.innerText = limitRoundDecimals(memory_value) + " " + operation;
 }
 function clearDisplayEquation(operation) {
     display_equation.innerText = "";
@@ -78,9 +93,12 @@ function clearDisplayEquation(operation) {
 
 let display_value = 0;
 let memory_value = 0;
+let decimal_part = 0;
+let decimal_string = ".";
 let result_value = 0;
 let operation = null;
 let last_button_equal = false;
+let decimal_mode = false;
 
 const button_0 = document.getElementById("digit_0");
 const button_1 = document.getElementById("digit_1");
@@ -104,66 +122,169 @@ const display_equation = document.getElementById("display-equation")
 
 button_0.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 0;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 0;
+            // addDecimalPart();
+            decimal_string += "0";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 0;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_1.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 1;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 1;
+            // addDecimalPart();
+            decimal_string += "1";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 1;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_2.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 2;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 2;
+            // addDecimalPart();
+            decimal_string += "2";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 2;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_3.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 3;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 3;
+            // addDecimalPart();
+            decimal_string += "3";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 3;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_4.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 4;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 4;
+            // addDecimalPart();
+            decimal_string += "4";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 4;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_5.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 5;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 5;
+            // addDecimalPart();
+            decimal_string += "5";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 5;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_6.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 6;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 6;
+            // addDecimalPart();
+            decimal_string += "6";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 6;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_7.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 7;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 7;
+            // addDecimalPart();
+            decimal_string += "7";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 7;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_8.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 8;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 8;
+            // addDecimalPart();
+            decimal_string += "8";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 8;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 button_9.addEventListener("click", function() {
     resetValues();
-    display_value = display_value*10 + 9;
-    updateDisplayMain();
+    if (checkNumberOfAllDigits(display_value)<DIGIT_LIMIT) {
+        if (decimal_mode) {
+            // display_value -= decimal_part/(Math.pow(10,checkNumberOfAllDigits(decimal_part)));
+            // decimal_part = decimal_part*10+ 9;
+            // addDecimalPart();
+            decimal_string += "9";
+            addDecimalString();
+        } else {
+                display_value = display_value*10 + 9;
+        }
+        updateDisplayMain();
+    }
     last_button_equal = false;
 })
 
 button_clear.addEventListener("click", function(){
+    decimal_mode = false;
+    decimal_part = 0;
+    decimal_string =".";
     display_value = 0;
     memory_value = 0;
     updateDisplayMain();
@@ -171,6 +292,9 @@ button_clear.addEventListener("click", function(){
     last_button_equal = false;
 })
 button_add.addEventListener("click", function () {
+    decimal_mode = false;
+    decimal_part = 0;
+    decimal_string =".";
     if (!last_button_equal) {
         memory_value = display_value;
     }
@@ -180,6 +304,9 @@ button_add.addEventListener("click", function () {
     last_button_equal = false;
 })
 button_subtract.addEventListener("click", function() {
+    decimal_mode = false;
+    decimal_part = 0;
+    decimal_string =".";
     if (!last_button_equal) {
         memory_value = display_value;
     }
@@ -189,6 +316,9 @@ button_subtract.addEventListener("click", function() {
     last_button_equal = false;
 })
 button_multiply.addEventListener("click", function (){
+    decimal_mode = false;
+    decimal_part = 0;
+    decimal_string =".";
     if (!last_button_equal) {
         memory_value = display_value;
     }
@@ -198,6 +328,9 @@ button_multiply.addEventListener("click", function (){
     last_button_equal = false;
 })
 button_divide.addEventListener("click", function (){
+    decimal_mode = false;
+    decimal_part = 0;
+    decimal_string =".";
     if (!last_button_equal) {
         memory_value = display_value;
     }
@@ -206,7 +339,12 @@ button_divide.addEventListener("click", function (){
     updateDisplayEquation(operation);
     last_button_equal = false;
 })
+button_decimal.addEventListener("click", function(){
+    decimal_mode = true;
+})
 button_equals.addEventListener("click", function () {
+    decimal_mode = false;
+    decimal_part = 0;
     result_value = operate(memory_value, display_value, operation);
     printResult();
     clearDisplayEquation();
