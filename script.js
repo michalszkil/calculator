@@ -1,4 +1,4 @@
-const DIGIT_LIMIT = 10;
+const DIGIT_LIMIT = 9;
 
 Number.prototype.round = function(places) {
     return +(Math.round(this + "e+" + places)  + "e-" + places);
@@ -250,6 +250,7 @@ button_decimal.addEventListener("click", function() {
 })
 button_equals.addEventListener("click", function () {
     performEquals();
+    printResult();
 })
 
 document.addEventListener('keydown', function(e) {
