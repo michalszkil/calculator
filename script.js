@@ -24,7 +24,6 @@ function divide(dividend, divisor) {
 }
 
 function operate(number_1, number_2, operator) {
-    console.log("Operacja " + number_1 + " " + operator + " " + number_2);
     if (operator === "+") {
         return(add(number_1, number_2));
     } else if (operator === "-") {
@@ -45,7 +44,6 @@ function performOperation () {
     if (!last_button_equal) {
         memory_value = display_value;
     }
-    // operation = "+";
     display_value = 0;
     updateDisplayEquation(operation);
     last_button_equal = false;
@@ -60,8 +58,6 @@ function performEquals () {
     clearDisplayEquation();
     last_button_equal = true;
     memory_value = result_value;
-    console.log("display_value = " + display_value);
-    console.log("memory_value = " + memory_value);
 }
 
 // The rounding doesn't really work for very small numbers but who cares
@@ -75,7 +71,6 @@ function checkNumberOfIntegerDigits(number) {
 
 function limitRoundDecimals (number) { // limit number of displayed decimals so that the display fits the whole number
     number_of_digits = checkNumberOfAllDigits(number);
-    console.log("Number of digits = " + number_of_digits);
     if (number_of_digits <= DIGIT_LIMIT) {
         return number;
     } else if (checkNumberOfIntegerDigits(number) >= DIGIT_LIMIT) {
@@ -86,18 +81,15 @@ function limitRoundDecimals (number) { // limit number of displayed decimals so 
 }
 
 function addDecimalString() { // remove old decimal part and add new
-    console.log("Decimal string to add " + decimal_string);
-    console.log("Display value before adding the decimal string " + display_value);
     display_value = Math.trunc(display_value);
     display_value = parseFloat(display_value + decimal_string);
-    console.log("Display value after adding the decimal string " + display_value);
 }
 
 function changeNumberSign() {
     display_value = -display_value;
 }
 
-// If last button pressed was "=" then reset values to 0
+// If the last button pressed was "=" then reset values to 0
 function resetValues() {
     if (last_button_equal) {
         display_value = 0;
@@ -132,15 +124,12 @@ function deleteLastDigit() {
 
 function updateDisplayMain() {
     display_main.innerText = limitRoundDecimals(display_value);
-    console.log("Current display_value = " + display_value);
 }
 function printResult() {
     display_main.innerText = limitRoundDecimals(result_value);
-    console.log("Current result_value = " + result_value);
 }
 function updateDisplayEquation(operation) {
     display_equation.innerText = limitRoundDecimals(memory_value) + " " + operation;
-    console.log("Current memory_value = " + memory_value);
 }
 function clearDisplayEquation(operation) {
     display_equation.innerText = "";
@@ -278,48 +267,62 @@ button_equals.addEventListener("click", function () {
 })
 
 document.addEventListener('keydown', function(e) {
-    console.log(` ${e.code}`);
-    if (e.code === "Digit0") /*addDigit("0")*/ button_0.click()
-    else if (e.code === "Digit1") /*addDigit("1")*/ button_1.click()
-    else if (e.code === "Digit2") /*addDigit("2")*/ button_2.click()
-    else if (e.code === "Digit3") /*addDigit("3")*/ button_3.click()
-    else if (e.code === "Digit4") /*addDigit("4")*/ button_4.click()
-    else if (e.code === "Digit5") /*addDigit("5")*/ button_5.click()
-    else if (e.code === "Digit6") /*addDigit("6")*/ button_6.click()
-    else if (e.code === "Digit7") /* addDigit("7") */ button_7.click()
-    else if (e.code === "Digit8") /* addDigit("8") */ button_8.click()
-    else if (e.code === "Digit9") /* addDigit("9") */ button_9.click()
-    else if (e.code === "Backspace") {
-/*         deleteLastDigit();
-        updateDisplayMain(); */
-        button_backspace.click();
-    }
-    else if (e.code === "Period") decimal_mode = true
-    else if (e.key === "+") {
-        // operation = "+";
-        // performOperation();
-        button_add.click();
-    }
-    else if (e.key === "-") {
-        // operation = "-";
-        // performOperation();
-        button_subtract.click();
-    }
-    else if (e.key === "*") { // For some reason doesn't work for "8*" button
-        // operation = "*";
-        // performOperation();
-        button_multiply.click();
-    }
-    else if (e.key === "/") {
-        // operation = "/";
-        // performOperation();
-        button_divide.click();
-    }
-    else if (e.key === "Enter") {
-        // performEquals();
-        // clearDisplayEquation();
-        button_equals.click();
-        // return false;
-        // printResult();
+    switch (e.key) {
+        case '0':
+             button_0.click();
+             break;
+        case '1':
+             button_1.click();
+             break;
+        case "2":
+             button_2.click();
+             break;
+        case "3":
+             button_3.click();
+             break;
+        case "4":
+             button_4.click();
+             break;
+        case "5":
+             button_5.click();
+             break;
+        case "6":
+             button_6.click();
+             break;
+        case "7":
+             button_7.click();
+             break;
+        case "8":
+             button_8.click();
+             break;
+        case "9":
+             button_9.click();
+             break;
+        case "Backspace": 
+            button_backspace.click();
+            break;
+       case ".":
+            decimal_mode = true;
+            break;
+        case "+":
+            button_add.click();
+            break;
+        case "-":
+            button_subtract.click();
+            break;
+
+        case "x":
+        case "*":
+            button_multiply.click();
+            break;
+        case "/":
+            button_divide.click();
+            break;
+        case "Enter":
+            button_equals.click();
+            break;
+        default:
+            break;
+
     }
 });
